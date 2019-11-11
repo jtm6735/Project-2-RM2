@@ -5,15 +5,16 @@ var handleDomo = function handleDomo(e) {
 
     $('#domoMessage').animate({ width: 'hide' }, 350);
 
-    if ($('#domoName').val() == '' || $('#domoAge').val() == '' || $('#domoLevel').val() == '' || $('#domoMoney').val() == '') {
-        handleError('All fields are required');
+    if ($('#domoName').val() == '' || $('#domoAge').val() == '' || $('#domoLevel').val() == '') {
+        handleError('RAWR! All fields are required');
         return false;
     }
-
+    
+    /*
     sendAjax('POST', $('#domoForm').attr('action'), $('#domoForm').serialize(), function () {
         loadDomosFromServer();
     });
-
+    */
     return false;
 };
 
@@ -49,7 +50,6 @@ var DomoForm = function DomoForm(props) {
     );
 };
 
-/*
 var DomoList = function DomoList(props) {
     if (props.domos.length === 0) {
         return React.createElement(
@@ -58,7 +58,7 @@ var DomoList = function DomoList(props) {
             React.createElement(
                 'h3',
                 { className: 'emptyDomo' },
-                'No Quizzes Completed Yet'
+                'No Domos Yet'
             )
         );
     }
@@ -67,7 +67,7 @@ var DomoList = function DomoList(props) {
         return React.createElement(
             'div',
             { key: domo._id, className: 'domo' },
-            React.createElement('img', { src: '/assets/img/domoFace.jpeg', alt: 'domo face', className: 'domoFace' }),
+            React.createElement('img', { src: '/assets/img/WUlogo.png', alt: 'domo face', className: 'domoFace' }),
             React.createElement(
                 'h3',
                 { className: 'domoName' },
@@ -98,17 +98,17 @@ var DomoList = function DomoList(props) {
         domoNodes
     );
 };
-*/
+
 var loadDomosFromServer = function loadDomosFromServer() {
     sendAjax('GET', '/getDomos', null, function (data) {
-        ReactDOM.render(React.createElement(DomoList, { domos: data.domos }), document.querySelector('#domos'));
+        //ReactDOM.render(React.createElement(DomoList, { domos: data.domos }), document.querySelector('#domos'));
     });
 };
 
 var setup = function setup(csrf) {
     ReactDOM.render(React.createElement(DomoForm, { csrf: csrf }), document.querySelector('#makeDomo'));
 
-    ReactDOM.render(React.createElement(DomoList, { domos: [] }), document.querySelector('#domos'));
+    //ReactDOM.render(React.createElement(DomoList, { domos: [] }), document.querySelector('#domos'));
 
     loadDomosFromServer();
 };

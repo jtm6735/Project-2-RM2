@@ -3,7 +3,7 @@ const handleDomo = (e) => {
 
     $('#domoMessage').animate({width:'hide'}, 350);
 
-    if($('#domoName').val() == '' || $('#domoAge').val() == '' || $('#domoLevel').val() == '' || $('#domoMoney').val() == '') {
+    if($('#domoName').val() == '' || $('#domoAge').val() == '' || $('#domoLevel').val() == '') {
         handleError('RAWR! All fields are required');
         return false;
     }
@@ -29,8 +29,6 @@ const DomoForm = (props) => {
             <input id='domoAge' type='text' name='age' placeholder='Domo Age' />
             <label htmlFor='level'>Level: </label>
             <input id='domoLevel' type='text' name='level' placeholder='Domo Level' />
-            <label htmlFor='money'>Money: </label>
-            <input id='domoMoney' type='text' name='money' placeholder='Domo Money' />
             <input type='hidden' name='_csrf' value={props.csrf} />
             <input className='makeDomoSubmit' type='submit' value='Make Domo' />
         </form>

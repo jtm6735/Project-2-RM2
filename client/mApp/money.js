@@ -12,7 +12,6 @@ const DomoList = function(props) {
             <div key={domo._id} className='domo'>
                 <img src='/assets/img/wupagetitle.png' alt='wu logo' className='domoFace'/>
                 <h3 className='domoName'> Name: {domo.name} </h3>
-                <h3 className='domoMoney'> Money:$ {domo.money} </h3>
             </div>
         );
     });
