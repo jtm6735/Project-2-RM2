@@ -10,7 +10,7 @@ const DomoList = function(props) {
     const domoNodes = props.domos.map(function(domo) {
         return (
             <div key={domo._id} className='domo'>
-                <img src='/assets/img/domoFace.jpeg' alt='domo face' className='domoFace'/>
+                <img src='/assets/img/wupagetitle.png' alt='wu logo' className='domoFace'/>
                 <h3 className='domoName'> Name: {domo.name} </h3>
                 <h3 className='domoMoney'> Money:$ {domo.money} </h3>
             </div>

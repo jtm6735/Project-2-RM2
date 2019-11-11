@@ -8,7 +8,7 @@ var DomoList = function DomoList(props) {
             React.createElement(
                 'h3',
                 { className: 'emptyDomo' },
-                'No Domos Yet'
+                'No Quizzes Filled Yet'
             )
         );
     }
@@ -17,7 +17,7 @@ var DomoList = function DomoList(props) {
         return React.createElement(
             'div',
             { key: domo._id, className: 'domo' },
-            React.createElement('img', { src: '/assets/img/domoFace.jpeg', alt: 'domo face', className: 'domoFace' }),
+            React.createElement('img', { src: '/assets/img/WUlogo.png', alt: 'domo face', className: 'domoFace' }),
             React.createElement(
                 'h3',
                 { className: 'domoName' },
@@ -27,9 +27,16 @@ var DomoList = function DomoList(props) {
             ),
             React.createElement(
                 'h3',
-                { className: 'domoMoney' },
-                ' Money:$ ',
-                domo.money,
+                { className: 'domoAge' },
+                ' Age: ',
+                domo.age,
+                ' '
+            ),
+            React.createElement(
+                'h3',
+                { className: 'domoLevel' },
+                ' Level: ',
+                domo.level,
                 ' '
             )
         );
