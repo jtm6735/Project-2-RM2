@@ -1,85 +1,85 @@
-const handleDomo = (e) => {
+const handleQuiz = (e) => {
     e.preventDefault();
 
-    $('#domoMessage').animate({width:'hide'}, 350);
+    $('#quizMessage').animate({width:'hide'}, 350);
 
-    if($('#domoName').val() == '' || $('#domoAge').val() == '' || $('#domoLevel').val() == '') {
+    if($('#quizName').val() == '' || $('#quizAge').val() == '' || $('#quizLevel').val() == '') {
         handleError('RAWR! All fields are required');
         return false;
     }
 
-    sendAjax('POST', $('#domoForm').attr('action'), $('#domoForm').serialize(), function() {
-        loadDomosFromServer();
+    sendAjax('POST', $('#quizForm').attr('action'), $('#quizForm').serialize(), function() {
+        loadQuizzesFromServer();
     });
 
     return false;
 };
 
-const DomoForm = (props) => {
+const QuizForm = (props) => {
     return (
-        <form id='domoForm'
-        onSubmit={handleDomo}
-        name='domoForm'
+        <form id='quizForm'
+        onSubmit={handleQuiz}
+        name='quizForm'
         action='/maker'
         method='POST'
-        className='domoForm' >
+        className='quizForm' >
             <label htmlFor='name'>Name: </label>
-            <input id='domoName' type='text' name='name' placeholder='Domo Name' />
+            <input id='quizName' type='text' name='name' placeholder='Quiz Name' />
             <label htmlFor='age'>Age: </label>
-            <input id='domoAge' type='text' name='age' placeholder='Domo Age' />
+            <input id='quizAge' type='text' name='age' placeholder='Quiz Age' />
             <label htmlFor='level'>Level: </label>
-            <input id='domoLevel' type='text' name='level' placeholder='Domo Level' />
+            <input id='quizLevel' type='text' name='level' placeholder='Quiz Level' />
             <input type='hidden' name='_csrf' value={props.csrf} />
-            <input className='makeDomoSubmit' type='submit' value='Make Domo' />
+            <input className='makeQuizSubmit' type='submit' value='Make Quiz' />
         </form>
     );
 };
 
-const DomoList = function(props) {
-    if(props.domos.length === 0) {
+const QuizList = function(props) {
+    if(props.quizzes.length === 0) {
         return (
-            <div className='domosList'>
-                <h3 className='emptyDomo'>No Domos Yet</h3>
+            <div className='quizzesList'>
+                <h3 className='emptyQuiz'>No Quizzes Yet</h3>
             </div>
         );
     }
 
-    const domoNodes = props.domos.map(function(domo) {
+    const quizNodes = props.quizzes.map(function(quiz) {
         return (
-            <div key={domo._id} className='domo'>
-                <img src='/assets/img/domoFace.jpeg' alt='domo face' className='domoFace'/>
-                <h3 className='domoName'> Name: {domo.name} </h3>
-                <h3 className='domoAge'> Age: {domo.age} </h3>
-                <h3 className='domoLevel'> Level: {domo.level} </h3>
+            <div key={quiz._id} className='quiz'>
+                <img src='/assets/img/WUlogo.png' alt='domo face' className='domoFace'/>
+                <h3 className='quizName'> Name: {quiz.name} </h3>
+                <h3 className='quizAge'> Age: {quiz.age} </h3>
+                <h3 className='quizLevel'> Level: {quiz.level} </h3>
             </div>
         );
     });
 
     return (
-        <div className='domoList'>
-            {domoNodes}
+        <div className='quizList'>
+            {quizNodes}
         </div>
     );
 };
 
-const loadDomosFromServer = () => {
-    sendAjax('GET', '/getDomos', null, (data) => {
+const loadQuizzesFromServer = () => {
+    sendAjax('GET', '/getQuizzes', null, (data) => {
         ReactDOM.render(
-            <DomoList domos={data.domos} />, document.querySelector('#domos')
+            <QuizList quizzes={data.quizzes} />, document.querySelector('#quizzes')
         );
     });
 };
 
 const setup = function(csrf) {
     ReactDOM.render(
-        <DomoForm csrf={csrf}/>, document.querySelector('#makeDomo')
+        <QuizForm csrf={csrf}/>, document.querySelector('#makeQuiz')
     );
 
     ReactDOM.render(
-        <DomoList domos={[]}/>, document.querySelector('#domos')
+        <QuizList quizzes={[]}/>, document.querySelector('#quizzes')
     );
 
-    loadDomosFromServer();
+    loadQuizzesFromServer();
 };
 
 const getToken = () => {

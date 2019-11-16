@@ -1,92 +1,91 @@
 'use strict';
 
-var handleDomo = function handleDomo(e) {
+var handleQuiz = function handleQuiz(e) {
     e.preventDefault();
 
-    $('#domoMessage').animate({ width: 'hide' }, 350);
+    $('#quizMessage').animate({ width: 'hide' }, 350);
 
-    if ($('#domoName').val() == '' || $('#domoAge').val() == '' || $('#domoLevel').val() == '') {
+    if ($('#quizName').val() == '' || $('#quizAge').val() == '' || $('#quizLevel').val() == '') {
         handleError('RAWR! All fields are required');
         return false;
     }
-    
-    /*
-    sendAjax('POST', $('#domoForm').attr('action'), $('#domoForm').serialize(), function () {
-        loadDomosFromServer();
+
+    sendAjax('POST', $('#quizForm').attr('action'), $('#quizForm').serialize(), function () {
+        loadQuizzesFromServer();
     });
-    */
+
     return false;
 };
 
-var DomoForm = function DomoForm(props) {
+var QuizForm = function QuizForm(props) {
     return React.createElement(
         'form',
-        { id: 'domoForm',
-            onSubmit: handleDomo,
-            name: 'domoForm',
+        { id: 'quizForm',
+            onSubmit: handleQuiz,
+            name: 'quizForm',
             action: '/maker',
             method: 'POST',
-            className: 'domoForm' },
+            className: 'quizForm' },
         React.createElement(
             'label',
             { htmlFor: 'name' },
             'Name: '
         ),
-        React.createElement('input', { id: 'domoName', type: 'text', name: 'name', placeholder: 'Your Name' }),
+        React.createElement('input', { id: 'quizName', type: 'text', name: 'name', placeholder: 'Quiz Name' }),
         React.createElement(
             'label',
             { htmlFor: 'age' },
             'Age: '
         ),
-        React.createElement('input', { id: 'domoAge', type: 'text', name: 'age', placeholder: 'Your Age' }),
+        React.createElement('input', { id: 'quizAge', type: 'text', name: 'age', placeholder: 'Quiz Age' }),
         React.createElement(
             'label',
             { htmlFor: 'level' },
             'Level: '
         ),
-        React.createElement('input', { id: 'domoLevel', type: 'text', name: 'level', placeholder: 'Your "Level"' }),
+        React.createElement('input', { id: 'quizLevel', type: 'text', name: 'level', placeholder: 'Quiz Level' }),
         React.createElement('input', { type: 'hidden', name: '_csrf', value: props.csrf }),
-        React.createElement('input', { className: 'makeDomoSubmit', type: 'submit', value: 'Finish Quiz' })
+        React.createElement('input', { className: 'makeQuizSubmit', type: 'submit', value: 'Make Quiz' })
     );
 };
 
-var DomoList = function DomoList(props) {
-    if (props.domos.length === 0) {
+var QuizList = function QuizList(props) {
+    if (props.quizzes.length === 0) {
         return React.createElement(
             'div',
-            { className: 'domosList' },
+            { className: 'quizzesList' },
             React.createElement(
                 'h3',
-                { className: 'emptyDomo' },
-                'No Domos Yet'
+                { className: 'emptyQuiz' },
+                'No Quizzes Yet'
             )
         );
     }
 
-    var domoNodes = props.domos.map(function (domo) {
+    var quizNodes = props.quizzes.map(function (quiz) {
         return React.createElement(
             'div',
-            { key: domo._id, className: 'domo' },
+            { key: quiz._id, className: 'quiz' },
             React.createElement('img', { src: '/assets/img/WUlogo.png', alt: 'domo face', className: 'domoFace' }),
             React.createElement(
                 'h3',
-                { className: 'domoName' },
+                { className: 'quizName' },
                 ' Name: ',
-                domo.name,
+                quiz.name,
                 ' '
             ),
             React.createElement(
                 'h3',
-                { className: 'domoAge' },
+                { className: 'quizAge' },
                 ' Age: ',
-                domo.age,
+                quiz.age,
                 ' '
             ),
             React.createElement(
                 'h3',
-                { className: 'domoLevel' },
+                { className: 'quizLevel' },
                 ' Level: ',
-                domo.level,
+                quiz.level,
                 ' '
             )
         );
@@ -94,23 +93,23 @@ var DomoList = function DomoList(props) {
 
     return React.createElement(
         'div',
-        { className: 'domoList' },
-        domoNodes
+        { className: 'quizList' },
+        quizNodes
     );
 };
 
-var loadDomosFromServer = function loadDomosFromServer() {
-    sendAjax('GET', '/getDomos', null, function (data) {
-        //ReactDOM.render(React.createElement(DomoList, { domos: data.domos }), document.querySelector('#domos'));
+var loadQuizzesFromServer = function loadQuizzesFromServer() {
+    sendAjax('GET', '/getQuizzes', null, function (data) {
+        ReactDOM.render(React.createElement(QuizList, { quizzes: data.quizzes }), document.querySelector('#quizzes'));
     });
 };
 
 var setup = function setup(csrf) {
-    ReactDOM.render(React.createElement(DomoForm, { csrf: csrf }), document.querySelector('#makeDomo'));
+    ReactDOM.render(React.createElement(QuizForm, { csrf: csrf }), document.querySelector('#makeQuiz'));
 
-    //ReactDOM.render(React.createElement(DomoList, { domos: [] }), document.querySelector('#domos'));
+    ReactDOM.render(React.createElement(QuizList, { quizzes: [] }), document.querySelector('#quizzes'));
 
-    loadDomosFromServer();
+    loadQuizzesFromServer();
 };
 
 var getToken = function getToken() {
@@ -126,11 +125,11 @@ $(document).ready(function () {
 
 var handleError = function handleError(message) {
   $('#errorMessage').text(message);
-  $('#domoMessage').animate({ width: 'toggle' }, 350);
+  $('#quizMessage').animate({ width: 'toggle' }, 350);
 };
 
 var redirect = function redirect(response) {
-  $('#domoMessage').animate({ width: 'hide' }, 350);
+  $('#quizMessage').animate({ width: 'hide' }, 350);
   window.location = response.redirect;
 };
 

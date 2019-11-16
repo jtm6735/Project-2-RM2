@@ -1,21 +1,21 @@
 const models = require('../models');
-const Domo = models.Domo;
+const Quiz = models.Quiz;
 
 const makerPage = (req, res) => {
-  Domo.DomoModel.findByOwner(req.session.account._id, (err, docs) => {
+  Quiz.QuizModel.findByOwner(req.session.account._id, (err, docs) => {
     if (err) {
       console.log(err);
       return res.status(400).json({ error: 'an error occured' });
     }
-    return res.render('app', { csrfToken: req.csrfToken(), domos: docs });
+    return res.render('app', { csrfToken: req.csrfToken(), quizzes: docs });
   });
 };
 
-const makeDomo = (req, res) => {
+const makeQuiz = (req, res) => {
   if (!req.body.name || !req.body.age || !req.body.level) {
     return res.status(400).json({ error: 'All fields are required' });
   }
-  const domoData = {
+  const quizData = {
     name: req.body.name,
     age: req.body.age,
     level: req.body.level,
@@ -23,35 +23,35 @@ const makeDomo = (req, res) => {
     owner: req.session.account._id,
   };
 
-  const newDomo = new Domo.DomoModel(domoData);
+  const newQuiz = new Quiz.QuizModel(quizData);
 
-  const domoPromise = newDomo.save();
+  const quizPromise = newQuiz.save();
 
-  domoPromise.then(() => res.json({ redirect: '/maker' }));
+  quizPromise.then(() => res.json({ redirect: '/maker' }));
 
-  domoPromise.catch((err) => {
+  quizPromise.catch((err) => {
     console.log(err);
     if (err.code === 11000) {
-      return res.status(400).json({ error: 'Domo already in use' });
+      return res.status(400).json({ error: 'Quiz already in use' });
     }
     return res.status(400).json({ error: 'An error occurred' });
   });
-  return domoPromise;
+  return quizPromise;
 };
 
-const getDomos = (request, response) => {
+const getQuizzes = (request, response) => {
   const req = request;
   const res = response;
 
-  return Domo.DomoModel.findByOwner(req.session.account._id, (err, docs) => {
+  return Quiz.QuizModel.findByOwner(req.session.account._id, (err, docs) => {
     if (err) {
       console.log(err);
       return res.status(400).json({ error: 'An error occurred' });
     }
-    return res.json({ domos: docs });
+    return res.json({ quizzes: docs });
   });
 };
 
 module.exports.makerPage = makerPage;
-module.exports.getDomos = getDomos;
-module.exports.make = makeDomo;
+module.exports.getQuizzes = getQuizzes;
+module.exports.make = makeQuiz;

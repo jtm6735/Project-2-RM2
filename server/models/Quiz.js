@@ -2,13 +2,13 @@ const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 const _ = require('underscore');
 
-let DomoModel = {};
+let QuizModel = {};
 
 // mongoose.types.objectID is a function that converts string ID to real mongo ID
 const convertId = mongoose.Types.ObjectId;
 const setName = (name) => _.escape(name).trim();
 
-const DomoSchema = new mongoose.Schema({
+const QuizSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -41,22 +41,22 @@ const DomoSchema = new mongoose.Schema({
 });
 
 
-DomoSchema.statics.toAPI = (doc) => ({
+QuizSchema.statics.toAPI = (doc) => ({
   name: doc.name,
   age: doc.age,
   level: doc.level,
   money: doc.money,
 });
 
-DomoSchema.statics.findByOwner = (ownerId, callback) => {
+QuizSchema.statics.findByOwner = (ownerId, callback) => {
   const search = {
     owner: convertId(ownerId),
   };
 
-  return DomoModel.find(search).select('name age level money').exec(callback);
+  return QuizModel.find(search).select('name age level').exec(callback);
 };
 
-DomoModel = mongoose.model('Domo', DomoSchema);
+QuizModel = mongoose.model('Quiz', QuizSchema);
 
-module.exports.DomoModel = DomoModel;
-module.exports.DomoSchema = DomoSchema;
+module.exports.QuizModel = QuizModel;
+module.exports.QuizSchema = QuizSchema;

@@ -52,7 +52,7 @@ app.use(session({
     port: redisURL.port,
     pass: redisPASS,
   }),
-  secret: 'Domo Arigato',
+  secret: 'Quiz Secret',
   resave: true,
   saveUninitialized: true,
   cookie: {
