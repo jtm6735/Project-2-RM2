@@ -4,7 +4,7 @@ const handleQuiz = (e) => {
     $('#quizMessage').animate({width:'hide'}, 350);
 
     if($('#quizName').val() == '' || $('#quizAge').val() == '' || $('#quizLevel').val() == '') {
-        handleError('RAWR! All fields are required');
+        handleError('All fields are required');
         return false;
     }
 
@@ -55,18 +55,18 @@ const QuizList = function(props) {
         );
     });
 
-    return (
-        <div className='quizList'>
-            {quizNodes}
-        </div>
-    );
+//    return (
+//        <div className='quizList'>
+//            {quizNodes}
+//        </div>
+//    );
 };
 
 const loadQuizzesFromServer = () => {
     sendAjax('GET', '/getQuizzes', null, (data) => {
-        ReactDOM.render(
-            <QuizList quizzes={data.quizzes} />, document.querySelector('#quizzes')
-        );
+//        ReactDOM.render(
+//            <QuizList quizzes={data.quizzes} />, document.querySelector('#quizzes')
+//        );
     });
 };
 
@@ -74,11 +74,11 @@ const setup = function(csrf) {
     ReactDOM.render(
         <QuizForm csrf={csrf}/>, document.querySelector('#makeQuiz')
     );
-
+    /*
     ReactDOM.render(
         <QuizList quizzes={[]}/>, document.querySelector('#quizzes')
     );
-
+    */
     loadQuizzesFromServer();
 };
 

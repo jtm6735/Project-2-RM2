@@ -6,7 +6,7 @@ var handleQuiz = function handleQuiz(e) {
     $('#quizMessage').animate({ width: 'hide' }, 350);
 
     if ($('#quizName').val() == '' || $('#quizAge').val() == '' || $('#quizLevel').val() == '') {
-        handleError('RAWR! All fields are required');
+        handleError('All fields are required');
         return false;
     }
 
@@ -91,24 +91,28 @@ var QuizList = function QuizList(props) {
         );
     });
 
-    return React.createElement(
-        'div',
-        { className: 'quizList' },
-        quizNodes
-    );
+    //    return (
+    //        <div className='quizList'>
+    //            {quizNodes}
+    //        </div>
+    //    );
 };
 
 var loadQuizzesFromServer = function loadQuizzesFromServer() {
     sendAjax('GET', '/getQuizzes', null, function (data) {
-        ReactDOM.render(React.createElement(QuizList, { quizzes: data.quizzes }), document.querySelector('#quizzes'));
+        //        ReactDOM.render(
+        //            <QuizList quizzes={data.quizzes} />, document.querySelector('#quizzes')
+        //        );
     });
 };
 
 var setup = function setup(csrf) {
     ReactDOM.render(React.createElement(QuizForm, { csrf: csrf }), document.querySelector('#makeQuiz'));
-
-    ReactDOM.render(React.createElement(QuizList, { quizzes: [] }), document.querySelector('#quizzes'));
-
+    /*
+    ReactDOM.render(
+        <QuizList quizzes={[]}/>, document.querySelector('#quizzes')
+    );
+    */
     loadQuizzesFromServer();
 };
 
