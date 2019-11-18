@@ -7,24 +7,21 @@ var handleChange = function handleChange(e) {
 
     if ($("#currPass").val() == '' || $("#newPass1").val() == '' || $("#newPass2").val() == '') {
         handleError("All fields are required.");
-        console.log("All fields are required.");
         return false;
     }
 
     if ($('#newPass').val() !== $('#newPass1').val()) {
         handleError("The passwords do not match.");
-        console.log("The passwords do not match.");
         return false;
     }
 
     if ($('#currPass').val() === $('#newPass').val()) {
         handleError("The new Password is the same as old password.");
-        console.log("The new Password is the same as old password.");
         return false;
     }
 
     sendAjax('POST', '/changePassword', $('#changeForm').serialize(), function () {
-        handleError('Password has changed');
+        handleError('The Password has been changed');
     });
 
     return false;
@@ -55,9 +52,9 @@ var ChangeWindow = function ChangeWindow(props) {
             { htmlFor: "pass2" },
             "Retype New Password: "
         ),
-        React.createElement("input", { id: "newPass2", type: "password", name: "newPass2", placeholder: "Retype New pPassword" }),
+        React.createElement("input", { id: "newPass2", type: "password", name: "newPass2", placeholder: "Retype New Password" }),
         React.createElement("input", { type: "hidden", name: "_csrf", value: props.csrf }),
-        React.createElement("input", { className: "formSubmit", type: "submit", value: "change password" })
+        React.createElement("input", { className: "formSubmit", type: "submit", value: "Change Password" })
     );
 };
 
@@ -78,11 +75,11 @@ $(document).ready(function () {
 
 var handleError = function handleError(message) {
   $('#errorMessage').text(message);
-  $('#quizMessage').animate({ width: 'toggle' }, 350);
+  $('#quizMessage').animate({ height: 'toggle' }, 300);
 };
 
 var redirect = function redirect(response) {
-  $('#quizMessage').animate({ width: 'hide' }, 350);
+  $('#quizMessage').animate({ height: 'hide' }, 350);
   window.location = response.redirect;
 };
 

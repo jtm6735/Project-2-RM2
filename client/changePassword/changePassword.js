@@ -5,24 +5,21 @@ const handleChange = (e) => {
 
     if($("#currPass").val() == '' || $("#newPass1").val() == '' || $("#newPass2").val() == '') {
         handleError("All fields are required.");
-        console.log("All fields are required.");
         return false;
     }
 
     if($('#newPass').val() !== $('#newPass1').val()) {
         handleError("The passwords do not match.");
-        console.log("The passwords do not match.");
         return false;
     }
 
     if($('#currPass').val() === $('#newPass').val()) {
         handleError("The new Password is the same as old password.");
-        console.log("The new Password is the same as old password.");
         return false;
     }
 
     sendAjax('POST', '/changePassword', $('#changeForm').serialize(), () => {
-        handleError('Password has changed');
+        handleError('The Password has been changed');
     });
 
     return false;
@@ -40,9 +37,9 @@ const ChangeWindow = (props) => {
             <label htmlFor='pass'>New Password: </label>
             <input id='newPass1' type='password' name='newPass1' placeholder='New Password' />
             <label htmlFor='pass2'>Retype New Password: </label>
-            <input id='newPass2' type='password' name='newPass2' placeholder='Retype New pPassword' />
+            <input id='newPass2' type='password' name='newPass2' placeholder='Retype New Password' />
             <input type='hidden' name='_csrf' value={props.csrf} />
-            <input className='formSubmit' type='submit' value='change password' />
+            <input className='formSubmit' type='submit' value='Change Password' />
         </form>
     );
 };

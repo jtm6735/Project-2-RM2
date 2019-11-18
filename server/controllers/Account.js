@@ -150,6 +150,7 @@ module.exports.login = login;
 module.exports.logout = logout;
 module.exports.passwordPage = passwordPage;
 module.exports.notFoundPage = notFoundPage;
+module.exports.upgradePage = upgradePage;
 module.exports.quizPage = quizPage;
 module.exports.changePassword = changePassword;
 module.exports.signup = signup;

@@ -10,7 +10,6 @@ const QuizList = function(props) {
     const quizNodes = props.quizzes.map(function(quiz) {
         return (
             <div key={quiz._id} className='quiz'>
-                <img src='/assets/img/WUlogo.png' alt='domo face' className='quizFace'/>
                 <h3 className='quizName'> Name: {quiz.name} </h3>
                 <h3 className='quizColor'> Age: {quiz.color} </h3>
                 <h3 className='quizHobby'> Hobby: {quiz.hobby} </h3>

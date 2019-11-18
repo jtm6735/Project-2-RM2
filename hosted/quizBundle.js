@@ -6,7 +6,7 @@ var handleQuiz = function handleQuiz(e) {
     $('#quizMessage').animate({ width: 'hide' }, 350);
 
     if ($('#quizName').val() == '' || $('#quizColor').val() == '' || $('#quizHobby').val() == '' || $('#quizAnimal').val() == '' || $('#quizNumber').val() == '') {
-        handleError('Not all questions have been answered?');
+        handleError('Not all questions have been answered');
         return false;
     }
 
@@ -57,7 +57,7 @@ var QuizForm = function QuizForm(props) {
         ),
         React.createElement('input', { id: 'quizNumber', type: 'text', name: 'number', placeholder: 'Favorite number?' }),
         React.createElement('input', { type: 'hidden', name: '_csrf', value: props.csrf }),
-        React.createElement('input', { className: 'makeQuizSubmit', type: 'submit', value: 'Make Quiz' })
+        React.createElement('input', { className: 'makeQuizSubmit', type: 'submit', value: 'Complete Quiz' })
     );
 };
 
@@ -78,7 +78,6 @@ var QuizList = function QuizList(props) {
         return React.createElement(
             'div',
             { key: quiz._id, className: 'quiz' },
-            React.createElement('img', { src: '/assets/img/WUlogo.png', alt: 'domo face', className: 'domoFace' }),
             React.createElement(
                 'h3',
                 { className: 'quizName' },
@@ -140,11 +139,11 @@ $(document).ready(function () {
 
 var handleError = function handleError(message) {
   $('#errorMessage').text(message);
-  $('#quizMessage').animate({ width: 'toggle' }, 350);
+  $('#quizMessage').animate({ height: 'toggle' }, 300);
 };
 
 var redirect = function redirect(response) {
-  $('#quizMessage').animate({ width: 'hide' }, 350);
+  $('#quizMessage').animate({ height: 'hide' }, 350);
   window.location = response.redirect;
 };
 

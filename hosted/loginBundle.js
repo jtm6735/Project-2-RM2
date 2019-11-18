@@ -23,12 +23,12 @@ var handleSignup = function handleSignup(e) {
     $("#quizMessage").animate({ width: 'hide' }, 350);
 
     if ($("#user").val() == '' || $("#pass").val() == '' || $("#pass2").val() == '') {
-        handleError("RAWR! All fields are required.");
+        handleError("All fields are required.");
         return false;
     }
 
     if ($('#pass').val() !== $('#pass2').val()) {
-        handleError("RAWR! Passwords do not match.");
+        handleError("Passwords do not match.");
         return false;
     }
 
@@ -50,13 +50,13 @@ var LoginWindow = function LoginWindow(props) {
             { htmlFor: "username" },
             "Username: "
         ),
-        React.createElement("input", { id: "user", type: "text", name: "username", placeholder: "username" }),
+        React.createElement("input", { id: "user", type: "text", name: "username", placeholder: "Username" }),
         React.createElement(
             "label",
             { htmlFor: "pass" },
             "Password: "
         ),
-        React.createElement("input", { id: "pass", type: "password", name: "pass", placeholder: "password" }),
+        React.createElement("input", { id: "pass", type: "password", name: "pass", placeholder: "Password" }),
         React.createElement("input", { type: "hidden", name: "_csrf", value: props.csrf }),
         React.createElement("input", { className: "formSubmit", type: "submit", value: "Sign in" })
     );
@@ -75,19 +75,19 @@ var SignupWindow = function SignupWindow(props) {
             { htmlFor: "username" },
             "Username: "
         ),
-        React.createElement("input", { id: "user", type: "text", name: "username", placeholder: "username" }),
+        React.createElement("input", { id: "user", type: "text", name: "username", placeholder: "Username" }),
         React.createElement(
             "label",
             { htmlFor: "pass" },
             "Password: "
         ),
-        React.createElement("input", { id: "pass", type: "password", name: "pass", placeholder: "password" }),
+        React.createElement("input", { id: "pass", type: "password", name: "pass", placeholder: "Password" }),
         React.createElement(
             "label",
             { htmlFor: "pass2" },
             "Password: "
         ),
-        React.createElement("input", { id: "pass2", type: "password", name: "pass2", placeholder: "retype password" }),
+        React.createElement("input", { id: "pass2", type: "password", name: "pass2", placeholder: "Retype Password" }),
         React.createElement("input", { type: "hidden", name: "_csrf", value: props.csrf }),
         React.createElement("input", { className: "formSubmit", type: "submit", value: "Sign up" })
     );
@@ -133,11 +133,11 @@ $(document).ready(function () {
 
 var handleError = function handleError(message) {
   $('#errorMessage').text(message);
-  $('#quizMessage').animate({ width: 'toggle' }, 350);
+  $('#quizMessage').animate({ height: 'toggle' }, 300);
 };
 
 var redirect = function redirect(response) {
-  $('#quizMessage').animate({ width: 'hide' }, 350);
+  $('#quizMessage').animate({ height: 'hide' }, 350);
   window.location = response.redirect;
 };
 

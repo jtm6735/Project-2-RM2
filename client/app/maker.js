@@ -4,7 +4,7 @@ const handleQuiz = (e) => {
     $('#quizMessage').animate({width:'hide'}, 350);
 
     if($('#quizName').val() == '' || $('#quizColor').val() == '' || $('#quizHobby').val() == '' || $('#quizAnimal').val() == '' || $('#quizNumber').val() == '') {
-        handleError('Not all questions have been answered?');
+        handleError('Not all questions have been answered');
         return false;
     }
 
@@ -34,7 +34,7 @@ const QuizForm = (props) => {
             <label htmlFor='number'>Number: </label>
             <input id='quizNumber' type='text' name='number' placeholder='Favorite number?'/>
             <input type='hidden' name='_csrf' value={props.csrf} />
-            <input className='makeQuizSubmit' type='submit' value='Make Quiz' />
+            <input className='makeQuizSubmit' type='submit' value='Complete Quiz' />
         </form>
     );
 };
@@ -51,7 +51,6 @@ const QuizList = function(props) {
     const quizNodes = props.quizzes.map(function(quiz) {
         return (
             <div key={quiz._id} className='quiz'>
-                <img src='/assets/img/WUlogo.png' alt='domo face' className='domoFace'/>
                 <h3 className='quizName'> Name: {quiz.name} </h3>
                 <h3 className='quizColor'> Age: {quiz.color} </h3>
                 <h3 className='quizHobby'> Hobby: {quiz.hobby} </h3>
