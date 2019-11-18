@@ -1,3 +1,5 @@
+// Checks if the user has filled in all the fields
+// Depending on varying outcomes, the error message is different
 const handleChange = (e) => {
     e.preventDefault();
 
@@ -25,7 +27,9 @@ const handleChange = (e) => {
     return false;
 };
 
-const ChangeWindow = (props) => {
+// Create the changed password with the
+// current, new, and confirmed new password
+const ChangePassword = (props) => {
     return (
         <form id='changeForm' name='changeForm'
             onSubmit={handleChange}
@@ -44,9 +48,10 @@ const ChangeWindow = (props) => {
     );
 };
 
+// Preps to render error messages in content
 const setup = (csrf) => {
     ReactDOM.render(
-        <ChangeWindow csrf={csrf} />,
+        <ChangePassword csrf={csrf} />,
         document.querySelector('#content')
     );
 };
@@ -58,6 +63,7 @@ const getToken = () => {
     });
 };
 
+// Displays content from the setup
 $(document).ready(function() {
     getToken();
 });

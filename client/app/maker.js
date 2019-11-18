@@ -1,3 +1,6 @@
+// Checks for if all the required fields
+// have been given values. Throws an error
+// if this happens.
 const handleQuiz = (e) => {
     e.preventDefault();
 
@@ -15,6 +18,8 @@ const handleQuiz = (e) => {
     return false;
 };
 
+// Creates a quiz form for users to fill out 
+// and answer
 const QuizForm = (props) => {
     return (
         <form id='quizForm'
@@ -39,6 +44,8 @@ const QuizForm = (props) => {
     );
 };
 
+// Creates the list of quiz answers
+// If nothing had been completed, no data gets shown
 const QuizList = function(props) {
     if(props.quizzes.length === 0) {
         return (
@@ -61,24 +68,27 @@ const QuizList = function(props) {
     });
 };
 
+// Gets the list of quizzes from the server
 const loadQuizzesFromServer = () => {
     sendAjax('GET', '/getQuizzes', null, (data) => {
     });
 };
 
+// 
 const setup = function(csrf) {
     ReactDOM.render(
         <QuizForm csrf={csrf}/>, document.querySelector('#makeQuiz')
     );
-    loadQuizzesFromServer();
 };
 
+// Gets the csrf token
 const getToken = () => {
     sendAjax('GET', '/getToken', null, (result) => {
         setup(result.csrfToken);
     });
 };
 
+// Creates the setup
 $(document).ready(function() {
     getToken();
 });

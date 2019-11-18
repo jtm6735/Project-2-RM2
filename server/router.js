@@ -1,6 +1,8 @@
 const controllers = require('./controllers');
 const mid = require('./middleware');
 
+// Sets up routes from the controllers folder
+// Also establishes login requirements for certain content
 const router = (app) => {
   app.get('/getToken', mid.requiresSecure, controllers.Account.getToken);
   app.get('/getQuizzes', mid.requiresSecure, controllers.Quiz.getQuizzes);

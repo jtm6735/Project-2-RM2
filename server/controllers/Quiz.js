@@ -1,6 +1,8 @@
 const models = require('../models');
 const Quiz = models.Quiz;
 
+// Creates the page for making quizzes
+// Passes in the csrf token
 const makerPage = (req, res) => {
   Quiz.QuizModel.findByOwner(req.session.account._id, (err, docs) => {
     if (err) {
@@ -11,6 +13,8 @@ const makerPage = (req, res) => {
   });
 };
 
+// Makes a new quiz to be filled out
+// Checks for all valid fields
 const makeQuiz = (req, res) => {
   if (!req.body.name || !req.body.color || !req.body.hobby || !req.body.animal 
       || !req.body.number) {
@@ -46,6 +50,7 @@ const makeQuiz = (req, res) => {
   return quizPromise;
 };
 
+// Load previous quizzes from the server
 const getQuizzes = (request, response) => {
   const req = request;
   const res = response;

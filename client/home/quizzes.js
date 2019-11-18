@@ -1,3 +1,5 @@
+// Checks for the list of quizzes
+// If the list is empty, then no explicit data is shown
 const QuizList = function(props) {
     if(props.quizzes.length === 0) {
         return (
@@ -26,6 +28,8 @@ const QuizList = function(props) {
     );
 };
 
+// Loads in any finished quiz from the
+// server, for the particular user
 const loadQuizzesFromServer = () => {
     sendAjax('GET', '/getQuizzes', null, (data) => {
         ReactDOM.render(
@@ -34,6 +38,7 @@ const loadQuizzesFromServer = () => {
     });
 };
 
+// Setups up the content to be populated
 const setup = function() {
     ReactDOM.render(
         <QuizList quizzes={[]} />, document.querySelector('#quizzes')
@@ -42,12 +47,14 @@ const setup = function() {
     loadQuizzesFromServer();
 };
 
+// Function which will call the setup
 const getToken = () => {
     sendAjax('GET', '/getToken', null, (result) => {
         setup(result.csrfToken);
     });
 };
 
+// Populates the setup
 $(document).ready(function() {
     getToken();
 });

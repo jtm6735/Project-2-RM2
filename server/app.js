@@ -12,10 +12,12 @@ const RedisStore = require('connect-redis')(session);
 const url = require('url');
 const csrf = require('csurf');
 
+// Creates local URLs
 const port = process.env.PORT || process.env.NODE_PORT || 3000;
 
-const dbURL = process.env.MONGODB_URI || 'mongodb://localhost/DomoMaker';
+const dbURL = process.env.MONGODB_URI || 'mongodb://localhost/WhoU';
 
+// Connects to database
 mongoose.connect(dbURL, (err) => {
   if (err) {
     console.log('Could not connect to database');
@@ -23,6 +25,7 @@ mongoose.connect(dbURL, (err) => {
   }
 });
 
+// Connection to Redis
 let redisURL = {
   hostname: 'redis-12843.c114.us-east-1-4.ec2.cloud.redislabs.com',
   port: '12843',
@@ -60,6 +63,7 @@ app.use(session({
   },
 }));
 
+// Uses handlebars
 app.engine('handlebars', expressHandlebars({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 app.set('views', `${__dirname}/../views`);
@@ -76,6 +80,7 @@ app.use((err, req, res, next) => {
 
 router(app);
 
+// Checks for errors
 app.listen(port, (err) => {
   if (err) {
     throw err;

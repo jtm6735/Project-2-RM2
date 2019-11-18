@@ -53,7 +53,7 @@ const QuizSchema = new mongoose.Schema({
   },
 });
 
-
+// Sends quiz data to the API
 QuizSchema.statics.toAPI = (doc) => ({
   name: doc.name,
   color: doc.color,
@@ -62,6 +62,7 @@ QuizSchema.statics.toAPI = (doc) => ({
   number: doc.number,
 });
 
+// Finds a quiz
 QuizSchema.statics.findByOwner = (ownerId, callback) => {
   const search = {
     owner: convertId(ownerId),

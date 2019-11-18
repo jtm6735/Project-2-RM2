@@ -2,31 +2,40 @@ const models = require('../models');
 
 const Account = models.Account;
 
+// Render login page
 const loginPage = (req, res) => {
   res.render('login', { csrfToken: req.csrfToken() });
 };
 
+// Render quiz page
 const quizPage = (req, res) => {
   res.render('quiz');
 };
 
+// Render upgrade page
 const upgradePage = (req, res) => {
   res.render('upgrade');
 };
 
+// Render passward change page
 const passwordPage = (req,res) => {
     res.render('changePassword');
 };
 
+// Render 404 page
 const notFoundPage = (req, res) => {
   res.render('notFound', { csrfToken: req.csrfToken() });
 };
 
+// Logs out, deletes the session, and redirects to the front page
 const logout = (req, res) => {
   req.session.destroy();
   res.redirect('/');
 };
 
+// Logs in the user
+// Checks for proper values and navigates 
+// that user to their main pages
 const login = (request, response) => {
   const req = request;
   const res = response;
@@ -50,6 +59,9 @@ const login = (request, response) => {
   });
 };
 
+// Used for controlling new user sign ups
+// Checks for valid fields when signing up
+// After successful creation, redirects to main page
 const signup = (request, response) => {
   const req = request;
   const res = response;
@@ -134,6 +146,7 @@ const changePassword = (request, response) => {
   );
 };
 
+// Gets csrf token
 const getToken = (request, response) => {
   const req = request;
   const res = response;

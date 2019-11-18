@@ -196,7 +196,6 @@ input{
 
 #quizMessage {
     display:none;
-    top: 250px;
     width: 250px;
     height: 650px;
     position: absolute;

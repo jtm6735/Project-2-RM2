@@ -1,5 +1,8 @@
 'use strict';
 
+// Checks for if all the required fields
+// have been given values. Throws an error
+// if this happens.
 var handleQuiz = function handleQuiz(e) {
     e.preventDefault();
 
@@ -17,6 +20,8 @@ var handleQuiz = function handleQuiz(e) {
     return false;
 };
 
+// Creates a quiz form for users to fill out 
+// and answer
 var QuizForm = function QuizForm(props) {
     return React.createElement(
         'form',
@@ -61,6 +66,8 @@ var QuizForm = function QuizForm(props) {
     );
 };
 
+// Creates the list of quiz answers
+// If nothing had been completed, no data gets shown
 var QuizList = function QuizList(props) {
     if (props.quizzes.length === 0) {
         return React.createElement(
@@ -115,10 +122,6 @@ var QuizList = function QuizList(props) {
             )
         );
     });
-};
-
-var loadQuizzesFromServer = function loadQuizzesFromServer() {
-    sendAjax('GET', '/getQuizzes', null, function (data) {});
 };
 
 var setup = function setup(csrf) {

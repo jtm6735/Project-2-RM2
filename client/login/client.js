@@ -1,4 +1,6 @@
-  
+// Checks for both inputs to be filled
+// with text. If no text is in one or either
+// box, an error will be thrown.
 const handleLogin = (e) => {
     e.preventDefault();
 
@@ -16,6 +18,9 @@ const handleLogin = (e) => {
     return false;
 };
 
+// Check to see if the new user has
+// filled out the fields
+// Check if both passwords match
 const handleSignup = (e) => {
     e.preventDefault();
 
@@ -36,6 +41,8 @@ const handleSignup = (e) => {
     return false;
 };
 
+// Creates form used to login with
+// username and password
 const LoginWindow = (props) => {
     return (
         <form id='loginForm' name='loginForm'
@@ -53,6 +60,9 @@ const LoginWindow = (props) => {
     );
 };
 
+// Creates form for signing up
+// This form uses the username,
+// password, and confirmed password
 const SignupWindow = (props) => {
     return (
         <form id='signupForm' name='signupForm'
@@ -72,6 +82,7 @@ const SignupWindow = (props) => {
     );
 };
 
+// Creates login view in the center of the page
 const createLoginWindow = (csrf) => {
     ReactDOM.render(
         <LoginWindow csrf={csrf} />,
@@ -79,6 +90,7 @@ const createLoginWindow = (csrf) => {
     );
 };
 
+// Creates login view in the center of the page
 const createSignupWindow = (csrf) => {
     ReactDOM.render(
         <SignupWindow csrf={csrf} />,
@@ -86,6 +98,8 @@ const createSignupWindow = (csrf) => {
     );
 };
 
+// Depending on if login or sign up is clicked,
+// a different view is created
 const setup = (csrf) => {
     const loginButton = document.querySelector('#loginButton');
     const signupButton = document.querySelector('#signupButton');
@@ -111,6 +125,7 @@ const getToken = () => {
     });
 };
 
+// Load in the csrf token
 $(document).ready(function() {
     getToken();
 });

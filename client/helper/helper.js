@@ -1,3 +1,5 @@
+// Functions to be used across the rest
+// of the bundles created
 const handleError = (message) => {
   $('#errorMessage').text(message);
   $('#quizMessage').animate({height: 'toggle'}, 300);
