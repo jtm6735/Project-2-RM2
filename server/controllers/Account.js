@@ -10,9 +10,9 @@ const quizPage = (req, res) => {
   res.render('quiz');
 };
 
-// const signupPage = (req, res) => {
-//   res.render('signup', { csrfToken: req.csrfToken() });
-// };
+const notFoundPage = (req,res) => {
+  res.render('notFound', { csrfToken: req.csrfToken() });
+};
 
 const logout = (req, res) => {
   req.session.destroy();
@@ -38,7 +38,7 @@ const login = (request, response) => {
 
     req.session.account = Account.AccountModel.toAPI(account);
 
-    return res.json({ redirect: '/maker' });
+    return res.json({ redirect: '/' });
   });
 };
 
@@ -88,6 +88,41 @@ const signup = (request, response) => {
   });
 };
 
+// Change password for the user
+// Checks that forms will be filled out so password can be changed
+const changePassword = (request, response) => {
+    const req = request;
+    const res = response;
+    
+    const currentPassword = `${req.body.currPass}`;
+    const newPass = `${req.body.newPass}`;
+    const newPassR = `${req.body.newPassR}`;
+    
+    if(!currentPassword || !newPass || !newPassR){
+        return res.status(400).json({error: 'All fields required'});
+    }
+    
+    return Account.AccountModel.authenticate(`${req.session.account.username}`, currentPassword, (err, pass) => {
+        if(err || !pass){
+            return res.status(401).json({error: 'Current password is incorrect'});
+        }
+        
+        return Account.AccountModel.generateHash(newPass, (salt, hash) => {
+        const searchUser = {
+          username: `${req.session.account.username}`,
+        }; 
+            
+        Account.AccountModel.update(searchUser, {$set: {password: hash, salt} }, {}, (error) => {
+            if(error){
+                return res.status(500).json({error: 'Unable to update password'});
+            }
+            return res.status(200).json({redirect: '/login'});
+                });
+            });
+        }
+    );
+};
+
 const getToken = (request, response) => {
   const req = request;
   const res = response;
@@ -102,7 +137,8 @@ const getToken = (request, response) => {
 module.exports.loginPage = loginPage;
 module.exports.login = login;
 module.exports.logout = logout;
+module.exports.notFoundPage = notFoundPage;
 module.exports.quizPage = quizPage;
-// module.exports.signupPage = signupPage;
+module.exports.changePassword = changePassword;
 module.exports.signup = signup;
 module.exports.getToken = getToken;
