@@ -10,7 +10,15 @@ const quizPage = (req, res) => {
   res.render('quiz');
 };
 
-const notFoundPage = (req,res) => {
+const upgradePage = (req, res) => {
+  res.render('upgrade');
+};
+
+const passwordPage = (req,res) => {
+    res.render('changePassword');
+};
+
+const notFoundPage = (req, res) => {
   res.render('notFound', { csrfToken: req.csrfToken() });
 };
 
@@ -91,36 +99,39 @@ const signup = (request, response) => {
 // Change password for the user
 // Checks that forms will be filled out so password can be changed
 const changePassword = (request, response) => {
-    const req = request;
-    const res = response;
-    
-    const currentPassword = `${req.body.currPass}`;
-    const newPass = `${req.body.newPass}`;
-    const newPassR = `${req.body.newPassR}`;
-    
-    if(!currentPassword || !newPass || !newPassR){
-        return res.status(400).json({error: 'All fields required'});
-    }
-    
-    return Account.AccountModel.authenticate(`${req.session.account.username}`, currentPassword, (err, pass) => {
-        if(err || !pass){
-            return res.status(401).json({error: 'Current password is incorrect'});
-        }
-        
-        return Account.AccountModel.generateHash(newPass, (salt, hash) => {
+  const req = request;
+  const res = response;
+
+  // force case to strings to cover security flaws
+  const currentPass = `${req.body.currPass}`;
+  const newPass = `${req.body.newPass}`;
+  const newPass2 = `${req.body.newPass2}`;
+
+  if (!currentPass || !newPass || !newPass2) {
+    return res.status(400).json({ error: 'All fields required.' });
+  }
+
+  return Account.AccountModel.authenticate(`${req.session.account.username}`, currentPass,
+    (err, pass) => {
+      if (err || !pass) {
+        return res.status(401).json({ error: 'Current password is incorrect. Help' });
+      }
+
+      return Account.AccountModel.generateHash(newPass, (salt, hash) => {
         const searchUser = {
           username: `${req.session.account.username}`,
-        }; 
-            
-        Account.AccountModel.update(searchUser, {$set: {password: hash, salt} }, {}, (error) => {
-            if(error){
-                return res.status(500).json({error: 'Unable to update password'});
-            }
-            return res.status(200).json({redirect: '/login'});
-                });
-            });
-        }
-    );
+        };
+
+        Account.AccountModel.update(searchUser, { $set: { password: hash, salt } }, {}, (error) => {
+          if (error) {
+            return res.status(500).json({ error: 'Unable to update password.' });
+          }
+
+          return res.status(200).json({ redirect: '/maker' });
+        });
+      });
+    }
+  );
 };
 
 const getToken = (request, response) => {
@@ -137,6 +148,7 @@ const getToken = (request, response) => {
 module.exports.loginPage = loginPage;
 module.exports.login = login;
 module.exports.logout = logout;
+module.exports.passwordPage = passwordPage;
 module.exports.notFoundPage = notFoundPage;
 module.exports.quizPage = quizPage;
 module.exports.changePassword = changePassword;

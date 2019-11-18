@@ -5,8 +5,8 @@ var handleQuiz = function handleQuiz(e) {
 
     $('#quizMessage').animate({ width: 'hide' }, 350);
 
-    if ($('#quizName').val() == '' || $('#quizAge').val() == '' || $('#quizLevel').val() == '') {
-        handleError('All fields are required');
+    if ($('#quizName').val() == '' || $('#quizColor').val() == '' || $('#quizHobby').val() == '' || $('#quizAnimal').val() == '' || $('#quizNumber').val() == '') {
+        handleError('Not all questions have been answered?');
         return false;
     }
 
@@ -31,19 +31,31 @@ var QuizForm = function QuizForm(props) {
             { htmlFor: 'name' },
             'Name: '
         ),
-        React.createElement('input', { id: 'quizName', type: 'text', name: 'name', placeholder: 'Quiz Name' }),
+        React.createElement('input', { id: 'quizName', type: 'text', name: 'name', placeholder: 'Name?' }),
         React.createElement(
             'label',
-            { htmlFor: 'age' },
-            'Age: '
+            { htmlFor: 'color' },
+            'Color: '
         ),
-        React.createElement('input', { id: 'quizAge', type: 'text', name: 'age', placeholder: 'Quiz Age' }),
+        React.createElement('input', { id: 'quizColor', type: 'text', name: 'color', placeholder: 'Favorite Color?' }),
         React.createElement(
             'label',
-            { htmlFor: 'level' },
-            'Level: '
+            { htmlFor: 'hobby' },
+            'Hobby: '
         ),
-        React.createElement('input', { id: 'quizLevel', type: 'text', name: 'level', placeholder: 'Quiz Level' }),
+        React.createElement('input', { id: 'quizHobby', type: 'text', name: 'hobby', placeholder: 'Have a hobby?' }),
+        React.createElement(
+            'label',
+            { htmlFor: 'animal' },
+            'Animal: '
+        ),
+        React.createElement('input', { id: 'quizAnimal', type: 'text', name: 'animal', placeholder: 'Favorite animal?' }),
+        React.createElement(
+            'label',
+            { htmlFor: 'number' },
+            'Number: '
+        ),
+        React.createElement('input', { id: 'quizNumber', type: 'text', name: 'number', placeholder: 'Favorite number?' }),
         React.createElement('input', { type: 'hidden', name: '_csrf', value: props.csrf }),
         React.createElement('input', { className: 'makeQuizSubmit', type: 'submit', value: 'Make Quiz' })
     );
@@ -57,7 +69,7 @@ var QuizList = function QuizList(props) {
             React.createElement(
                 'h3',
                 { className: 'emptyQuiz' },
-                'No Quizzes Yet'
+                'No Quizzes Finished Yet'
             )
         );
     }
@@ -76,43 +88,42 @@ var QuizList = function QuizList(props) {
             ),
             React.createElement(
                 'h3',
-                { className: 'quizAge' },
+                { className: 'quizColor' },
                 ' Age: ',
-                quiz.age,
+                quiz.color,
                 ' '
             ),
             React.createElement(
                 'h3',
-                { className: 'quizLevel' },
-                ' Level: ',
-                quiz.level,
+                { className: 'quizHobby' },
+                ' Hobby: ',
+                quiz.hobby,
+                ' '
+            ),
+            React.createElement(
+                'h3',
+                { className: 'quizAnimal' },
+                ' Animal: ',
+                quiz.animal,
+                ' '
+            ),
+            React.createElement(
+                'h3',
+                { className: 'quizNumber' },
+                ' Number: ',
+                quiz.number,
                 ' '
             )
         );
     });
-
-    //    return (
-    //        <div className='quizList'>
-    //            {quizNodes}
-    //        </div>
-    //    );
 };
 
 var loadQuizzesFromServer = function loadQuizzesFromServer() {
-    sendAjax('GET', '/getQuizzes', null, function (data) {
-        //        ReactDOM.render(
-        //            <QuizList quizzes={data.quizzes} />, document.querySelector('#quizzes')
-        //        );
-    });
+    sendAjax('GET', '/getQuizzes', null, function (data) {});
 };
 
 var setup = function setup(csrf) {
     ReactDOM.render(React.createElement(QuizForm, { csrf: csrf }), document.querySelector('#makeQuiz'));
-    /*
-    ReactDOM.render(
-        <QuizList quizzes={[]}/>, document.querySelector('#quizzes')
-    );
-    */
     loadQuizzesFromServer();
 };
 

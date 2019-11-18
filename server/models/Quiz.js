@@ -8,6 +8,7 @@ let QuizModel = {};
 const convertId = mongoose.Types.ObjectId;
 const setName = (name) => _.escape(name).trim();
 
+
 const QuizSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -16,13 +17,25 @@ const QuizSchema = new mongoose.Schema({
     set: setName,
   },
 
-  age: {
-    type: Number,
-    min: 0,
+  color: {
+    type: String,
     required: true,
+    trim: true,
   },
 
-  level: {
+  hobby: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+    
+  animal: {
+    type: String,
+    required: true,
+    trim: true,
+  }, 
+    
+  number: {
     type: Number,
     min: 0,
     required: true,
@@ -43,9 +56,10 @@ const QuizSchema = new mongoose.Schema({
 
 QuizSchema.statics.toAPI = (doc) => ({
   name: doc.name,
-  age: doc.age,
-  level: doc.level,
-  money: doc.money,
+  color: doc.color,
+  hobby: doc.hobby,
+  animal: doc.animal,
+  number: doc.number,
 });
 
 QuizSchema.statics.findByOwner = (ownerId, callback) => {
@@ -53,7 +67,7 @@ QuizSchema.statics.findByOwner = (ownerId, callback) => {
     owner: convertId(ownerId),
   };
 
-  return QuizModel.find(search).select('name age level').exec(callback);
+  return QuizModel.find(search).select('name color hobby animal number').exec(callback);
 };
 
 QuizModel = mongoose.model('Quiz', QuizSchema);

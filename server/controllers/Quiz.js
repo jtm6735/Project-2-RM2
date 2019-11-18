@@ -12,14 +12,20 @@ const makerPage = (req, res) => {
 };
 
 const makeQuiz = (req, res) => {
-  if (!req.body.name || !req.body.age || !req.body.level) {
-    return res.status(400).json({ error: 'All fields are required' });
+  if (!req.body.name || !req.body.color || !req.body.hobby || !req.body.animal || !req.body.number) {
+      console.dir(req.body.name);
+      console.dir(req.body.color);
+      console.dir(req.body.hobby);
+      console.dir(req.body.animal);
+      console.dir(req.body.number);
+      return res.status(400).json({ error: 'All fields are required' });
   }
   const quizData = {
     name: req.body.name,
-    age: req.body.age,
-    level: req.body.level,
-    money: req.body.money,
+    color: req.body.color,
+    hobby: req.body.hobby,
+    animal: req.body.animal,
+    number: req.body.number,
     owner: req.session.account._id,
   };
 

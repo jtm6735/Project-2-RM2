@@ -156,7 +156,7 @@ nav:nth-child(1) {
     position: absolute;
     z-index: 200;
     right: 0px;
-    overflow: hidden;
+/*    overflow: hidden;*/
 }
 
 #quizMessage h3 {
@@ -260,4 +260,26 @@ h3.quizAge {
 
 .quiz:last-child {
     margin-bottom:10px;
+}
+
+#imgContent, #textContent{
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+#lostImg{
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
+
+#textContent{
+    font-size: 24px;
+    font-weight: 700;
+}
+
+#homeHeader{
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;
 }

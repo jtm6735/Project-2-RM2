@@ -27,16 +27,30 @@ var QuizList = function QuizList(props) {
             ),
             React.createElement(
                 'h3',
-                { className: 'quizAge' },
+                { className: 'quizColor' },
                 ' Age: ',
-                quiz.age,
+                quiz.color,
                 ' '
             ),
             React.createElement(
                 'h3',
-                { className: 'quizLevel' },
-                ' Level: ',
-                quiz.level,
+                { className: 'quizHobby' },
+                ' Hobby: ',
+                quiz.hobby,
+                ' '
+            ),
+            React.createElement(
+                'h3',
+                { className: 'quizAnimal' },
+                ' Animal: ',
+                quiz.animal,
+                ' '
+            ),
+            React.createElement(
+                'h3',
+                { className: 'quizNumber' },
+                ' Number: ',
+                quiz.number,
                 ' '
             )
         );

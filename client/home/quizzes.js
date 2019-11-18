@@ -12,8 +12,10 @@ const QuizList = function(props) {
             <div key={quiz._id} className='quiz'>
                 <img src='/assets/img/WUlogo.png' alt='domo face' className='quizFace'/>
                 <h3 className='quizName'> Name: {quiz.name} </h3>
-                <h3 className='quizAge'> Age: {quiz.age} </h3>
-                <h3 className='quizLevel'> Level: {quiz.level} </h3>
+                <h3 className='quizColor'> Age: {quiz.color} </h3>
+                <h3 className='quizHobby'> Hobby: {quiz.hobby} </h3>
+                <h3 className='quizAnimal'> Animal: {quiz.animal} </h3>
+                <h3 className='quizNumber'> Number: {quiz.number} </h3>
             </div>
         );
     });
