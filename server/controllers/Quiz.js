@@ -12,7 +12,8 @@ const makerPage = (req, res) => {
 };
 
 const makeQuiz = (req, res) => {
-  if (!req.body.name || !req.body.color || !req.body.hobby || !req.body.animal || !req.body.number) {
+  if (!req.body.name || !req.body.color || !req.body.hobby || !req.body.animal 
+      || !req.body.number) {
       console.dir(req.body.name);
       console.dir(req.body.color);
       console.dir(req.body.hobby);
